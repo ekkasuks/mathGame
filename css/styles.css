@@ -1,0 +1,20 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, "Sarabun", sans-serif;
+  background: #eaf6ff;
+  color: #123;
+  min-height: 100vh;
+}
+#app { max-width: 900px; margin: 0 auto; padding: 16px; }
+.screen { display: block; }
+.hidden { display: none !important; }
+button {
+  font-size: 1.1rem; padding: 12px 20px; border: none; border-radius: 12px;
+  background: #2e9bff; color: #fff; cursor: pointer; min-height: 48px;
+}
+button:active { transform: scale(0.98); }
+input {
+  font-size: 1.1rem; padding: 12px; border: 2px solid #bcd; border-radius: 10px;
+  width: 100%; min-height: 48px;
+}
+@media (max-width: 480px) { #app { padding: 10px; } }
