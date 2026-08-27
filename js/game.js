@@ -13,6 +13,8 @@ export function startStage({ zoneId, stageId, onComplete }) {
 
   function renderQuestion() {
     const q = questions[idx];
+    let answered = false;  // Guard: prevent duplicate answers for this question
+
     el.innerHTML = `
       <div class="game-hud">ด่าน ${zoneId}-${stageId} · ข้อ ${idx + 1}/${questions.length}</div>
       <div class="question">${q.text} = ?</div>
@@ -22,23 +24,35 @@ export function startStage({ zoneId, stageId, onComplete }) {
     `;
     const input = document.getElementById("answer-input");
     input.focus();
-    const submit = () => checkAnswer(q, Number(input.value));
+
+    function checkAnswer(given) {
+      if (answered) return;  // Guard: already answered this question, ignore re-entry
+      answered = true;
+
+      // Treat empty input as incorrect answer (NaN never equals q.answer)
+      if (input.value.trim() === "") {
+        given = NaN;
+      }
+
+      const correct = given === q.answer;
+      answers.push(correct);
+      const fb = document.getElementById("feedback");
+      fb.textContent = correct ? "✅ ถูกต้อง!" : `❌ คำตอบคือ ${q.answer}`;
+      fb.className = "feedback " + (correct ? "ok" : "no");
+      document.getElementById("submit-answer").disabled = true;
+      input.disabled = true;
+      input.onkeydown = null;  // Neutralize input to prevent further submissions
+
+      setTimeout(() => {
+        idx++;
+        if (idx < questions.length) renderQuestion();
+        else finish();
+      }, 900);
+    }
+
+    const submit = () => checkAnswer(Number(input.value));
     document.getElementById("submit-answer").onclick = submit;
     input.onkeydown = (e) => { if (e.key === "Enter") submit(); };
-  }
-
-  function checkAnswer(q, given) {
-    const correct = given === q.answer;
-    answers.push(correct);
-    const fb = document.getElementById("feedback");
-    fb.textContent = correct ? "✅ ถูกต้อง!" : `❌ คำตอบคือ ${q.answer}`;
-    fb.className = "feedback " + (correct ? "ok" : "no");
-    document.getElementById("submit-answer").disabled = true;
-    setTimeout(() => {
-      idx++;
-      if (idx < questions.length) renderQuestion();
-      else finish();
-    }, 900);
   }
 
   function finish() {
