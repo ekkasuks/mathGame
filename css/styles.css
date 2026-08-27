@@ -34,3 +34,12 @@ h1 { text-align: center; margin: 16px 0 20px; font-size: 1.8rem; }
 .auth-form select { width: 100%; min-height: 48px; font-size: 1.1rem; border-radius: 10px; border: 2px solid #bcd; }
 #au-submit { width: 100%; margin-top: 20px; }
 .auth-msg { text-align: center; margin-top: 12px; min-height: 24px; color: #d23; }
+.world-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; }
+.score-badge { background: #fff4c2; padding: 8px 12px; border-radius: 10px; font-weight: 600; }
+.zone { margin: 16px 0; }
+.zone-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+.stages { display: flex; gap: 10px; flex-wrap: wrap; }
+.stage { width: 60px; height: 60px; min-height: 60px; border-radius: 14px; font-size: 1.2rem; padding: 0; }
+.stage.done { background: #ffd23f; color: #7a5a00; }
+.stage.open { background: #2e9bff; }
+.stage.locked { background: #ccd5dd; color: #889; cursor: not-allowed; }
