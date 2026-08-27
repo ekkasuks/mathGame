@@ -6,6 +6,7 @@ const ZONE_MULT = { 1: 1, 2: 2, 3: 3, 4: 4 };
 
 export function startStage({ zoneId, stageId, onComplete }) {
   const el = document.getElementById("screen-game");
+  if (!ZONE_SPECS[zoneId]) { console.warn("bad zone", zoneId); return; }
   const spec = ZONE_SPECS[zoneId];
   const questions = generateStage(spec, CONFIG.QUESTIONS_PER_STAGE);
   const answers = [];
