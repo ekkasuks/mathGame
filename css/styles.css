@@ -43,3 +43,11 @@ h1 { text-align: center; margin: 16px 0 20px; font-size: 1.8rem; }
 .stage.done { background: #ffd23f; color: #7a5a00; }
 .stage.open { background: #2e9bff; }
 .stage.locked { background: #ccd5dd; color: #889; cursor: not-allowed; }
+.lb-top { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.lb-list { display: flex; flex-direction: column; gap: 6px; }
+.lb-row { display: flex; align-items: center; gap: 12px; background: #fff; padding: 12px; border-radius: 10px; }
+.lb-row.mine { background: #d7f0ff; border: 2px solid #2e9bff; }
+.lb-rank { width: 40px; font-size: 1.2rem; text-align: center; }
+.lb-name { flex: 1; font-weight: 600; }
+.lb-name small { color: #789; font-weight: 400; }
+.lb-score { font-weight: 700; color: #036; }
