@@ -40,7 +40,7 @@ function findRowById(sh, studentId) {
 }
 
 function findRowByName(sh, name) {
-  var tf = sh.getRange("B2:B").createTextFinder(name).matchEntireCell(true).findNext();
+  var tf = sh.getRange("B2:B").createTextFinder(name).matchEntireCell(true).matchCase(true).findNext();
   return tf ? tf.getRow() : -1;
 }
 

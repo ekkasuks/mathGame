@@ -39,12 +39,14 @@ export function renderAuth({ onAuthed }) {
     msg.textContent = "";
   }
 
-  el.querySelector("#au-submit").onclick = async () => {
+  const submitBtn = el.querySelector("#au-submit");
+  submitBtn.onclick = async () => {
     const name = el.querySelector("#au-name").value.trim();
     const pin = el.querySelector("#au-pin").value;
     if (!name) return show("ใส่ชื่อก่อนนะ");
     if (!/^\d{4}$/.test(pin)) return show("PIN ต้องเป็นตัวเลข 4 หลัก");
     show("กำลังเข้าระบบ...");
+    submitBtn.disabled = true;
     let res;
     if (mode === "register") {
       const grade = Number(el.querySelector("#au-grade").value);
@@ -52,7 +54,10 @@ export function renderAuth({ onAuthed }) {
     } else {
       res = await login({ name, pin });
     }
-    if (!res.ok) return show(errorText(res.error));
+    if (!res.ok) {
+      submitBtn.disabled = false;
+      return show(errorText(res.error));
+    }
     const d = res.data;
     const session = { studentId: d.studentId, token: d.token, displayName: d.displayName, grade: d.grade };
     saveSession(session);

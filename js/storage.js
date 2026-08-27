@@ -24,3 +24,4 @@ export function enqueue(item) {
 }
 export function dequeueAll() { return readJSON(K_QUEUE) || []; }
 export function clearQueue() { localStorage.removeItem(K_QUEUE); }
+export function setQueue(items) { writeJSON(K_QUEUE, items); }

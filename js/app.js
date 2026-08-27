@@ -14,12 +14,12 @@ let session = null;
 let progress = { totalScore: 0, coins: 0, stagesCleared: [] };
 
 async function flushQueue() {
-  const items = store.dequeueAll();
-  if (!items.length) return;
-  store.clearQueue();
-  for (const it of items) {
-    const res = await api.submitProgress(it);
-    if (!res.ok) store.enqueue(it); // ยังส่งไม่ได้ เก็บกลับเข้าคิว
+  let items = store.dequeueAll();
+  while (items.length) {
+    const res = await api.submitProgress(items[0]);
+    if (!res.ok) break;         // หยุดเมื่อส่งไม่สำเร็จ เก็บที่เหลือไว้ในคิว
+    items = items.slice(1);
+    store.setQueue(items);      // บันทึกคิวหลังส่งสำเร็จแต่ละรายการ
   }
 }
 
@@ -39,16 +39,17 @@ function playStage(zoneId, stageId) {
     onComplete: async (result) => {
       // optimistic: อัปเดตในเครื่องทันที
       const key = stageKey(zoneId, stageId);
+      const cleared = result.correctCount > 0;
       progress.totalScore += result.score;
       progress.coins += result.coins;
-      if (!progress.stagesCleared.includes(key) && result.correctCount > 0) {
+      if (!progress.stagesCleared.includes(key) && cleared) {
         progress.stagesCleared.push(key);
       }
       store.saveProgress(progress);
       goWorld();
       // sync เบื้องหลัง
       const payload = { studentId: session.studentId, addScore: result.score,
-        addCoins: result.coins, stageKey: key };
+        addCoins: result.coins, stageKey: cleared ? key : "" };
       const res = await api.submitProgress(payload);
       if (!res.ok) store.enqueue(payload);
     },

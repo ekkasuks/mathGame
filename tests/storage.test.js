@@ -36,3 +36,10 @@ test("queue enqueue/dequeueAll/clear ทำงานตามลำดับ", (
   S.clearQueue();
   assert.deepEqual(S.dequeueAll(), []);
 });
+
+test("setQueue เขียนคิวทั้งหมดทับของเดิมได้", () => {
+  S.setQueue([{ a: 1 }, { a: 2 }]);
+  assert.deepEqual(S.dequeueAll(), [{ a: 1 }, { a: 2 }]);
+  S.setQueue([]);
+  assert.deepEqual(S.dequeueAll(), []);
+});
