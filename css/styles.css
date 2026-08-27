@@ -26,3 +26,11 @@ input {
 .stage-result { text-align: center; }
 .stage-result h2 { margin-bottom: 12px; }
 .stage-result p { font-size: 1.2rem; margin: 8px 0; }
+h1 { text-align: center; margin: 16px 0 20px; font-size: 1.8rem; }
+.auth-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.tab { flex: 1; background: #cfe6ff; color: #036; }
+.tab.active { background: #2e9bff; color: #fff; }
+.auth-form label { display: block; margin: 12px 0 6px; font-weight: 600; }
+.auth-form select { width: 100%; min-height: 48px; font-size: 1.1rem; border-radius: 10px; border: 2px solid #bcd; }
+#au-submit { width: 100%; margin-top: 20px; }
+.auth-msg { text-align: center; margin-top: 12px; min-height: 24px; color: #d23; }
