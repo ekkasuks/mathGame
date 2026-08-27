@@ -18,3 +18,11 @@ input {
   width: 100%; min-height: 48px;
 }
 @media (max-width: 480px) { #app { padding: 10px; } }
+.game-hud { font-size: 0.95rem; color: #567; margin-bottom: 12px; }
+.question { font-size: 2.4rem; font-weight: 700; text-align: center; margin: 24px 0; }
+.feedback { min-height: 32px; font-size: 1.2rem; text-align: center; margin-top: 12px; }
+.feedback.ok { color: #1a9f4b; }
+.feedback.no { color: #d23; }
+.stage-result { text-align: center; }
+.stage-result h2 { margin-bottom: 12px; }
+.stage-result p { font-size: 1.2rem; margin: 8px 0; }
